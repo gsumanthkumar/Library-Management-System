@@ -96,7 +96,7 @@ class LibraryView(APIView):
             else:
                 return Response({"status":401,"Message":"Invalid Data!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
     def get(self,request,lid):
         if request.user.is_superuser:
@@ -106,7 +106,7 @@ class LibraryView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":"Something went wrong Please try Again!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
     
     def put(self,request,lid):
         if request.user.is_superuser:
@@ -132,7 +132,7 @@ class LibraryView(APIView):
             else:
                 return Response({"status":401,"Message":"Invalid Data!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
     def delete(self,request,lid):
         if request.user.is_superuser:
@@ -142,7 +142,7 @@ class LibraryView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":"Something Went wrong Please try again!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
     
 #only accessed by Superadmin
 #create and delete librarian
@@ -165,7 +165,7 @@ class LibrarianView(APIView):
             else:
                 return Response({"status":401,"Message":"Invalid Data!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
     def delete(self,request,uid):
         if request.user.is_superuser:
@@ -175,7 +175,7 @@ class LibrarianView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":"Something Went wrong Please try again!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
 
 #only accessed by Librarian
@@ -198,7 +198,7 @@ class BookView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":e})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
     def get(self,request,bid):
         if request.user.is_librarian:
@@ -208,7 +208,7 @@ class BookView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":"Something went wrong Please try again!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
     
     def put(self,request,bid):
         if request.user.is_librarian:
@@ -223,7 +223,7 @@ class BookView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":e})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
     def delete(self,request,bid):
         if request.user.is_librarian:
@@ -233,7 +233,7 @@ class BookView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":"Something Went wrong Please try again!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
 #only accessed by Librarian
 #Create and delete borrower
@@ -257,7 +257,7 @@ class BorrowerView(APIView):
             else:
                 return Response({"status":401,"Message":"Invalid Data!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
     def delete(self,request,uid):
         if request.user.is_librarian:
@@ -267,7 +267,7 @@ class BorrowerView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":"Something Went wrong Please try again!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
 #only accessed by Librarian and Borrower
 #lending book to borrower
@@ -292,9 +292,9 @@ class BookTransactionView(APIView):
                     except Exception as e:
                         return Response({"status":500,"Message":"Something went wrong Please try again!"})
                 else:
-                    return Response({"status":401,"Message":"User Have no access to Borrow book!"})
+                    return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
             else:
-                return Response({"status":401,"Message":"You have no access to lend this book!"})
+                return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
     def put(self,request,tid):
 
@@ -306,7 +306,7 @@ class BookTransactionView(APIView):
             except Exception as e:
                     return Response({"status":500,"Message":"Something went wrong please try again!"})
         else:
-            return Response({"status":401,"Message":"You have no access!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
 
 #only accessed by borrower
@@ -322,7 +322,7 @@ class BorrowerBookView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":"Something went wrong Please try again!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
 #to get list of borrowed books from library
 class BorrowerBooksView(APIView):
@@ -336,7 +336,7 @@ class BorrowerBooksView(APIView):
             except Exception as e:
                 return Response({"status":500,"Message":"Something went wrong Please try again!"})
         else:
-            return Response({"status":500,"Message":"You are not Authorized to Perform this Action!"})
+            return Response({"status":403,"Message":"You are not Authorized to Perform this Action!"})
 
 def send_mail(request):
     send_mail_func.delay()
